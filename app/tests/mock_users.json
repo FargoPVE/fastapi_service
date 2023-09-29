@@ -1,0 +1,15 @@
+[
+    {
+        "email": "alex@mail.ru",
+        "hashed_password": "$2b$12$cu8nV9BRwC3oX6EaaxVbIuirsUG6nudwEp4n6h/XMvDvEFkOBhlOq"
+    },
+    {
+        "email": "gena@google.com",
+        "hashed_password": "$2b$12$cu8nV9BRwC3oX6EaaxVbIuirsUG6nudwEp4n6h/XMvDvEFkOBhlOq"
+    },
+    {
+        "email": "pupa@yandex.ru",
+        "hashed_password": "$2b$12$cu8nV9BRwC3oX6EaaxVbIuirsUG6nudwEp4n6h/XMvDvEFkOBhlOq"
+    }
+
+]

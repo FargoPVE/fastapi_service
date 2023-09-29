@@ -1,0 +1,70 @@
+[tool.poetry]
+name = "fastapi booking"
+version = "0.1.0"
+description = "Booking service"
+authors = ["FargoPVE <vladislavpchel@yandex.ru>"]
+readme = "README.md"
+
+[tool.black]
+line-length = 88
+target-version = [ "py310", "py311" ]
+exclude = "((.eggs | .git | .pytest_cache | build | dist))"
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+line_length = 88
+
+[tool.autoflake]
+check-diff = true
+imports = ["sqlalchemy", "app"]
+
+[tool.pyright]
+include = ["app"]
+exclude = ["**/__pycache__",
+    "src/experimental",
+    "src/typestubs"
+]
+ignore = ["src/migrations"]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+uvicorn = {extras = ["standart"], version = "^0.23.2"}
+sqlalchemy = "^2.0.21"
+alembic = "^1.12.0"
+asyncpg = "^0.28.0"
+pydantic-settings = "^2.0.3"
+fastapi-pagination = "^0.12.9"
+passlib = "^1.7.4"
+bcrypt = "^4.0.1"
+jose = "^1.0.0"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+fastapi-cache2 = {extras = ["redis"], version = "^0.2.1"}
+celery = "^5.3.4"
+flower = "^2.0.1"
+pillow = "^10.0.1"
+sqladmin = "^0.15.0"
+pytest = "^7.4.2"
+pytest-asyncio = "^0.21.1"
+httpx = "^0.25.0"
+black = "^23.9.1"
+flake8 = "^6.1.0"
+autoflake = "^2.2.1"
+isort = "^5.12.0"
+pyright = "^1.1.329"
+python-json-logger = "^2.0.7"
+sentry-sdk = {extras = ["fastapi"], version = "^1.31.0"}
+fastapi-versioning = "^0.10.0"
+gunicorn = "^21.2.0"
+prometheus-fastapi-instrumentator = "^6.1.0"
+
+[tool.poetry.group.dev.dependencies]
+fastapi = {extras = ["all"], version = "^0.103.1"}
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
