@@ -9,12 +9,10 @@ from app.api.v1.endpoints.rooms import get_rooms_by_time
 from app.api.v1.endpoints.bookings import create_booking, get_bookings
 from app.utils.utils import format_number_thousand_separator, get_month_days
 
-router = APIRouter(
-    prefix="/pages",
-    tags=["Pages"]
-)
+router = APIRouter(prefix="/pages", tags=["Pages"])
 
 templates = Jinja2Templates(directory="app/templates")
+
 
 @router.get("/login", response_class=HTMLResponse)
 async def get_login_page(request: Request):
@@ -39,7 +37,7 @@ async def get_hotels_page(
         date_to, date_from = date_from, date_to
 
     date_from = max(datetime.today().date(), date_from)
-    date_to = min((datetime.today() + timedelta(days=180)).date(), date_to)
+    date_to = min((datetime.today() + timedelta(days=20)).date(), date_to)
     return templates.TemplateResponse(
         "hotels_and_rooms/hotels.html",
         {

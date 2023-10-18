@@ -14,10 +14,7 @@ from app.utils.logger import logger
 def procces_picture(path: str):
     im_path = Path(path)
     im = Image.open(im_path)
-    for width, height in [
-        (1000, 500),
-        (200, 100)
-    ]:
+    for width, height in [(1000, 500), (200, 100)]:
         resized_img = im.resize(size=(width, height))
         resized_img.save(f"app/static/images/resized_{width}_{height}_{im_path.name}")
 

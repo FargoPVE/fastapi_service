@@ -28,7 +28,7 @@ class BaseService:
             query = select(cls.model.__table__.columns).filter_by(**filter_by)
             result = await session.execute(query)
             return result.mappings().all()
-        
+
     @classmethod
     async def add(cls, **data):
         async with async_session_maker() as session:
@@ -44,9 +44,11 @@ class BaseService:
                 elif isinstance(e, Exception):
                     msg = "Unknown Exc: Cannot insert data into table"
 
-                logger.error(msg, extra={"table": cls.model.__tablename__}, exc_info=True)
+                logger.error(
+                    msg, extra={"table": cls.model.__tablename__}, exc_info=True
+                )
                 return None
-            
+
     @classmethod
     async def delete(cls, **filter_by):
         async with async_session_maker() as session:
@@ -54,7 +56,6 @@ class BaseService:
             await session.execute(query)
             await session.commit()
 
-    
     @classmethod
     async def add_bulk(cls, *data):
         try:

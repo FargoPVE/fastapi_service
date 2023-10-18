@@ -11,15 +11,9 @@ from app.utils.exeptions import (
     CannotAddDataToDatabase,
 )
 
-auth_router = APIRouter(
-    prefix="/auth",
-    tags=["Authentification"]
-)
+auth_router = APIRouter(prefix="/auth", tags=["Authentification"])
 
-users_router = APIRouter(
-    prefix="/users",
-    tags=["Users"]
-)
+users_router = APIRouter(prefix="/users", tags=["Users"])
 
 
 @auth_router.post("/register")
@@ -28,7 +22,9 @@ async def register_user(user_data: SUserAuth):
     if existing_user:
         raise UserAlreadyExistsException
     hashed_password = get_password_hash(user_data.password)
-    new_user = await UserService.add(email=user_data.email, hashed_password=hashed_password)
+    new_user = await UserService.add(
+        email=user_data.email, hashed_password=hashed_password
+    )
     if not new_user:
         raise CannotAddDataToDatabase
 
@@ -40,15 +36,18 @@ async def login_user(response: Response, user_data: SUserAuth):
     response.set_cookie("booking_access_token", access_token, httponly=True)
     return {"access_token": access_token}
 
+
 @auth_router.post("/logout")
 async def logout_user(response: Response):
     response.delete_cookie("booking_access_token")
+
 
 @users_router.get("/me")
 async def get_current_user(current_user: Users = Depends(get_current_user)):
     if not current_user:
         raise UnauthorizedException
     return current_user
+
 
 @users_router.get("/all")
 async def get_all_users(current_user: Users = Depends(get_current_user)):

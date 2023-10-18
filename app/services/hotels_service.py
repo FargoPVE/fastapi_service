@@ -10,7 +10,6 @@ from app.models.rooms_model import Rooms
 from app.utils.logger import logger
 
 
-
 class HotelService(BaseService):
     model = Hotels
 
@@ -36,9 +35,12 @@ class HotelService(BaseService):
         )
 
         booked_hotels = (
-            select(Rooms.hotel_id, func.sum(
+            select(
+                Rooms.hotel_id,
+                func.sum(
                     Rooms.quantity - func.coalesce(booked_rooms.c.rooms_booked, 0)
-            ).label("rooms_left"))
+                ).label("rooms_left"),
+            )
             .select_from(Rooms)
             .join(booked_rooms, booked_rooms.c.room_id == Rooms.id, isouter=True)
             .group_by(Rooms.hotel_id)
@@ -59,7 +61,10 @@ class HotelService(BaseService):
             )
         )
         async with async_session_maker() as session:
-            logger.debug(get_hotels_with_rooms.compile(engine, compile_kwargs={"literal_binds": True}))
+            logger.debug(
+                get_hotels_with_rooms.compile(
+                    engine, compile_kwargs={"literal_binds": True}
+                )
+            )
             hotels_with_rooms = await session.execute(get_hotels_with_rooms)
             return hotels_with_rooms.mappings().all()
-    

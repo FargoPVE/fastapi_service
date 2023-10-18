@@ -4,10 +4,7 @@ from fastapi import APIRouter, UploadFile
 
 from app.api.celery_tasks import procces_picture
 
-router = APIRouter(
-    prefix="/images",
-    tags=["Upload images"]
-)
+router = APIRouter(prefix="/images", tags=["Upload images"])
 
 
 @router.post("/hotels")

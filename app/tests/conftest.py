@@ -24,11 +24,11 @@ async def prepare_database():
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.drop_all)
         await conn.run_sync(Base.metadata.create_all)
-        
+
     def open_mock_json(model: str):
         with open(f"app/tests/mock_{model}.json", encoding="utf-8") as file:
             return json.load(file)
-    
+
     users = open_mock_json("users")
     hotel = open_mock_json("hotels")
     rooms = open_mock_json("rooms")
@@ -58,9 +58,9 @@ def event_loop(request):
     loop = policy.new_event_loop()
     yield loop
     loop.close()
-        
 
-#ac - async client
+
+# ac - async client
 @pytest.fixture(scope="function")
 async def ac():
     async with AsyncClient(app=fastapi_app, base_url="http://test") as ac:
@@ -70,10 +70,13 @@ async def ac():
 @pytest.fixture(scope="session")
 async def authenticated_ac():
     async with AsyncClient(app=fastapi_app, base_url="http://test") as ac:
-        await ac.post("/api/v1/auth/login", json={
-            "email": "alex@mail.ru",
-            "password": "test",
-        })
+        await ac.post(
+            "/api/v1/auth/login",
+            json={
+                "email": "alex@mail.ru",
+                "password": "test",
+            },
+        )
         assert ac.cookies["booking_access_token"]
         yield ac
 

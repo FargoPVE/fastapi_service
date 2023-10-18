@@ -22,6 +22,7 @@ class SBooking(BaseModel):
     total_cost: int
     total_days: int
 
+
 class SBookingInfo(SBooking):
     model_config = ConfigDict(from_attributes=True)
 

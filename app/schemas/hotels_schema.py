@@ -11,7 +11,8 @@ class SHotel(BaseModel):
     location: str
     services: List[str]
     rooms_quantity: int
-    image_id: int  
+    image_id: int
+
 
 class SHotelInfo(SHotel):
     model_config = ConfigDict(from_attributes=True)

@@ -9,13 +9,14 @@ from app.schemas.rooms_schema import SRoomInfo
 from app.services.rooms_services import RoomService
 
 
-
 @router.get("/{hotel_id}/rooms")
 @cache(expire=30)
 async def get_rooms_by_time(
     hotel_id: str,
     date_from: date = Query(..., description=f"Например, {datetime.now().date()}"),
-    date_to: date = Query(..., description=f"Например, {(datetime.now() + timedelta(days=14)).date()}"),
+    date_to: date = Query(
+        ..., description=f"Например, {(datetime.now() + timedelta(days=14)).date()}"
+    ),
 ) -> List[SRoomInfo]:
     rooms = await RoomService.find_all(hotel_id, date_from, date_to)
     return rooms

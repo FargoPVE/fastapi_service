@@ -21,4 +21,3 @@ class Rooms(Base):
 
     def __str__(self) -> str:
         return f"Room {self.name} | {self.quantity}"
-    

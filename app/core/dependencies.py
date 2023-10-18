@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from fastapi import Depends, Request
 from jose import JWTError, jwt, ExpiredSignatureError
 
@@ -10,7 +8,7 @@ from app.utils.exeptions import (
     IncorrectTokenFormatException,
     TokenAbsentException,
     TokenExpiredException,
-    UserIsNotPresentException
+    UserIsNotPresentException,
 )
 
 
@@ -19,6 +17,7 @@ def get_token(request: Request):
     if not token:
         raise TokenAbsentException
     return token
+
 
 async def get_current_user(token: str = Depends(get_token)):
     try:
@@ -34,6 +33,7 @@ async def get_current_user(token: str = Depends(get_token)):
     if not user:
         raise UserIsNotPresentException
     return user
+
 
 async def get_current_admin_user(current_user: Users = Depends(get_current_user)):
     # if current_user.role != "admin":

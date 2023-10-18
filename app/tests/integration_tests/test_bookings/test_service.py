@@ -5,12 +5,15 @@ import pytest
 from app.services.bookings_service import BookingService
 
 
-@pytest.mark.parametrize("user_id, room_id", [
-    (2,2),
-    (2,3),
-    (1,4),
-    (1,4),
-])
+@pytest.mark.parametrize(
+    "user_id, room_id",
+    [
+        (2, 2),
+        (2, 3),
+        (1, 4),
+        (1, 4),
+    ],
+)
 async def test_booking_crud(user_id, room_id):
     # Добавление брони
     new_booking = await BookingService.add(

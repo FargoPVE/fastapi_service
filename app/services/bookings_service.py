@@ -38,7 +38,6 @@ class BookingService(BaseService):
                     .cte("booked_rooms")
                 )
 
-
                 get_rooms_left = (
                     select(
                         (Rooms.quantity - func.count(booked_rooms.c.room_id)).label(
@@ -46,7 +45,9 @@ class BookingService(BaseService):
                         )
                     )
                     .select_from(Rooms)
-                    .join(booked_rooms, booked_rooms.c.room_id == Rooms.id, isouter=True)
+                    .join(
+                        booked_rooms, booked_rooms.c.room_id == Rooms.id, isouter=True
+                    )
                     .where(Rooms.id == room_id)
                     .group_by(Rooms.quantity, booked_rooms.c.room_id)
                 )
@@ -70,8 +71,8 @@ class BookingService(BaseService):
                             price=price,
                         )
                         .returning(
-                            Bookings.id, 
-                            Bookings.user_id, 
+                            Bookings.id,
+                            Bookings.user_id,
                             Bookings.room_id,
                             Bookings.date_from,
                             Bookings.date_to,
@@ -111,4 +112,3 @@ class BookingService(BaseService):
             )
             result = await session.execute(query)
             return result.mappings().all()
-

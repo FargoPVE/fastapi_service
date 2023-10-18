@@ -15,6 +15,7 @@ class SRoom(BaseModel):
     quantity: int
     image_id: int
 
+
 class SRoomInfo(SRoom):
     model_config = ConfigDict(from_attributes=True)
 

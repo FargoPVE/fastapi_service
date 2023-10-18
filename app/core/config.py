@@ -9,10 +9,10 @@ ExcludedField = Annotated[T, Field(exclude=True)]
 
 
 class Settings(BaseSettings):
-    model_config = SettingsConfigDict(env_file='.env', extra='ignore')
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
     MODE: Literal["DEV", "TEST", "PROD"]
     LOG_LEVEL: Literal["INFO", "DEBUG"]
-    
+
     DB_HOST: str
     DB_PORT: int
     DB_NAME: str
@@ -48,5 +48,3 @@ class Settings(BaseSettings):
 
 
 settings = Settings()
-# settings.DATABASE_URL = f"postgresql+asyncpg://{settings.DB_USER}:{settings.DB_PASS}@{settings.DB_HOST}:{settings.DB_PORT}/{settings.DB_NAME}"
-# settings.TEST_DATABASE_URL = f"postgresql+asyncpg://{settings.TEST_DB_USER}:{settings.TEST_DB_PASS}@{settings.TEST_DB_HOST}:{settings.TEST_DB_PORT}/{settings.TEST_DB_NAME}"
